@@ -76,11 +76,11 @@ Example:
 
 	Ubuntu
 	------
-	update-rc.d init-ts3srv
+	update-rc.d init-ts3srv defaults
 
 	Debian
 	------
-	update-rc.d init-ts3srv
+	update-rc.d init-ts3srv defaults
 
 ------------------
 Actions and usage:
