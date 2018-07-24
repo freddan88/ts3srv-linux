@@ -16,7 +16,10 @@ Download:
 Tutorial:
 Video:
 
-YaTQA Tool to query Teamspeak 3 Server: http://yat.qa
+Video expaining how to install using MySQL/MariaDB (optional)
+https://www.youtube.com/watch?v=QwWq8czW40M
+
+YaTQA Tool to query Teamspeak 3 Server (optional): http://yat.qa
 
 ------------
 Description:
