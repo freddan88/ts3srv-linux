@@ -55,7 +55,7 @@ Example:
 	chmod 754 /etc/init.d/init-ts3srv
 	/etc/init.d/init-ts3srv start
 
-7. Accept the license and restart the service
+7. Accept the license and start the service
 Example:
 	nano /srv/ts3/ts3server.ini
 	Change: license_accepted=0 <to> license_accepted=1
