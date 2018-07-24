@@ -72,15 +72,18 @@ Example:
 Example:
 	CentOS
 	------
-	chkconfig --add init-ts3srv
+	chkconfig --add init-ts3srv // Enable
+	chkconfig --del init-ts3srv // Disable
 
 	Ubuntu
 	------
-	update-rc.d init-ts3srv defaults
+	update-rc.d init-ts3srv defaults // Enable
+	update-rc.d init-ts3srv remove // Disable
 
 	Debian
 	------
-	update-rc.d init-ts3srv defaults
+	update-rc.d init-ts3srv defaults // Enable
+	update-rc.d init-ts3srv remove // Disable
 
 ------------------
 Actions and usage:
