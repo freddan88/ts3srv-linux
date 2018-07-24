@@ -33,7 +33,11 @@ Example:
 Example:
 	useradd -r -U -c "ts3server" -d /srv/ts3 -s /bin/sh ts3
 
-3. Change permissions and owner on the new directory
+3. Download ts3server and change permissions on the folder
+Download:
+	Teamspeak 3 Server and upload to /srv/ts3
+	URL: https://www.teamspeak.com/en/downloads#server
+
 Example:
 	chown -R ts3:ts3 /srv/ts3
 	chmod -R 774 /srv/ts3/libts3db*
