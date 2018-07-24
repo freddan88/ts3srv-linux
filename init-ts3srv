@@ -10,6 +10,7 @@ USER=ts3
 #
 # Do not edit!
 ##############
+############
 case "$1" in
 
 start)
@@ -45,7 +46,8 @@ stop)
 ;;
 
 restart)
-	su $USER -c ''$DIR/$EXE' restart inifile=ts3server.ini'
+	$0 stop
+	$0 start
 ;;
 
 status)
