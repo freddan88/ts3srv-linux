@@ -20,8 +20,8 @@ USER=ts3
 case "$1" in
 
 start)
-if [ -f $DIR/ts3server.ini ]; then
-lic=$(cat /srv/ts3//ts3server.ini | grep license_accepted | cut --delimiter="=" --fields=2)
+	if [ -f $DIR/ts3server.ini ]; then
+	lic=$(cat /srv/ts3//ts3server.ini | grep license_accepted | cut --delimiter="=" --fields=2)
 		if [ "$lic" -eq 1 ]; then
 			su $USER -c "'$DIR/$EXE' start inifile=ts3server.ini"
 		else
