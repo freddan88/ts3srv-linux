@@ -16,6 +16,8 @@ Download:
 Tutorial:
 Video:
 
+YaTQA Tool to query Teamspeak 3 Server: http://yat.qa
+
 ------------
 Description:
 ------------
