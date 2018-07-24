@@ -1,0 +1,101 @@
+------
+Links:
+------
+
+URL: http://www.leemann.se/fredrik
+Donate: https://www.paypal.me/freddan88
+YouTube: https://www.youtube.com/user/FreLee54
+
+Github-main: https://github.com/freddan88
+Github-page: https://github.com/freddan88/ts3srv-linux
+
+Download:
+Tutorial:
+Video:
+
+------------
+Description:
+------------
+Script to manage Teamspeak 3 Server on Linux
+Currently tested for Ubuntu, Debian and CentOS
+Automatically creates ini and asks for license
+
+-------------
+Instructions:
+------------
+1. Create a new directory for the user that will be added
+Example:
+	mkdir /srv/ts3
+
+2. Create a new user that will run your Teamspeak Server
+Example:
+	useradd -r -U -c "ts3server" -d /srv/ts3 -s /bin/sh ts3
+
+3. Change permissions and owner on the new directory
+Example:
+	chown -R ts3:ts3 /srv/ts3
+	chmod -R 774 /srv/ts3/libts3db*
+	chmod -R 774 /srv/ts3/ts3server*
+
+4. Download the script and upload to /etc/init.d
+Example:
+	/etc/init.d/init-ts3srv
+
+5. Edit the script to include your path, user and script
+Example:
+	nano /etc/init.d/init-ts3srv
+
+Config:
+	DIR=/srv/ts3 "Path to ts3server-files"
+	EXE=ts3server_startscript.sh "Script"
+	USER=ts3 "User for ts3server"
+
+6. Change permission and start the server
+Example:
+	chmod 754 /etc/init.d/init-ts3srv
+	/etc/init.d/init-ts3srv start
+
+7. Accept the license and restart the service
+Example:
+	nano /srv/ts3/ts3server.ini
+	Change: license_accepted=0 <to> license_accepted=1
+	/etc/init.d/init-ts3srv start
+
+8. Configure Autostart
+Example:
+	CentOS
+	------
+	chkconfig --add init-ts3srv
+
+	Ubuntu
+	------
+	update-rc.d init-ts3srv
+
+	Debian
+	------
+	update-rc.d init-ts3srv
+
+------------------
+Actions and usage:
+------------------
+
+/etc/init.d/init-ts3srv start
+	1. Checks for ts3server.ini (configuration) and if not found creates it
+	2. Checks if license is accepted and then starts the server if it is
+	3. If the license is not accepted the server will ask you to accept it
+
+/etc/init.d/init-ts3srv stop
+	Stop the server and removes the pid-file
+
+/etc/init.d/init-ts3srv restart
+	Restarts the server
+
+/etc/init.d/init-ts3srv status
+	Checks if ts3server is running echos pid
+
+/etc/init.d/init-ts3srv
+	Shows usage and parameters
+
+----------
+END README
+----------
