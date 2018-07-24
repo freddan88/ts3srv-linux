@@ -12,9 +12,9 @@ Github-page: https://github.com/freddan88/ts3srv-linux
 Download Teamspeak Client: https://www.teamspeak.com/en/downloads
 Download Teamspeak Server: https://www.teamspeak.com/en/downloads#server
 
-Download: http://www.leemann.se/fredrik/file_downloads/ts3srv_linux-init.zip
-Tutorial: https://github.com/freddan88/ts3srv-linux/blob/master/readme.txt
 Video:
+Tutorial: https://github.com/freddan88/ts3srv-linux/blob/master/readme.txt
+Download: http://www.leemann.se/fredrik/file_downloads/ts3srv_linux-init.zip
 
 Video expaining how to install using MySQL/MariaDB (optional)
 https://www.youtube.com/watch?v=QwWq8czW40M
