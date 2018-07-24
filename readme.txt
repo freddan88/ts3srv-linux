@@ -44,7 +44,7 @@ Example:
 	chmod -R 774 /srv/ts3/ts3server*
 
 4. Download the script and upload to /etc/init.d
-Example:
+Path:
 	/etc/init.d/init-ts3srv
 
 5. Edit the script to include your path, user and script
