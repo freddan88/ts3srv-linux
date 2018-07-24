@@ -21,7 +21,6 @@ Description:
 ------------
 Script to manage Teamspeak 3 Server on Linux
 Currently tested for Ubuntu, Debian and CentOS
-Automatically creates ini and asks for license
 
 -------------
 Instructions:
