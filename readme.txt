@@ -17,7 +17,7 @@ Tutorial: https://github.com/freddan88/ts3srv-linux/blob/master/readme.txt
 Download: http://www.leemann.se/fredrik/file_downloads/ts3srv_linux-init.zip
 
 Video expaining how to install using MySQL/MariaDB (optional)
-https://www.youtube.com/watch?v=QwWq8czW40M
+Link: https://www.youtube.com/watch?v=QwWq8czW40M
 
 YaTQA Tool to query Teamspeak 3 Server (optional): http://yat.qa
 
