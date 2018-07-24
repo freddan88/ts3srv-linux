@@ -46,7 +46,7 @@ Example:
 4. Download the script and upload to /etc/init.d
 Example:
 	cd /etc/init.d
-	wget https://github.com/freddan88/ts3srv-linux/blob/master/init-ts3srv
+	wget https://github.com/freddan88/ts3srv-linux/raw/master/init-ts3srv
 
 5. Edit the script to include your path, user and script
 Example:
