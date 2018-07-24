@@ -48,7 +48,7 @@ Example:
 	cd /etc/init.d
 	wget https://github.com/freddan88/ts3srv-linux/raw/master/init-ts3srv
 
-5. Edit the script to include your path, user and script
+5. Edit the script to include your path, user and script (optional)
 Example:
 	nano /etc/init.d/init-ts3srv
 
