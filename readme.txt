@@ -9,6 +9,9 @@ YouTube: https://www.youtube.com/user/FreLee54
 Github-main: https://github.com/freddan88
 Github-page: https://github.com/freddan88/ts3srv-linux
 
+Download Teamspeak Client: https://www.teamspeak.com/en/downloads
+Download Teamspeak Server: https://www.teamspeak.com/en/downloads#server
+
 Download:
 Tutorial:
 Video:
