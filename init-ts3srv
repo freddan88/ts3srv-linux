@@ -45,7 +45,7 @@ run)
 echo " "
 	if ! [ -f $DIR/ts3db.ini ]; then
 		echo "[config]" > $DIR/ts3db.ini
-		echo "host=localhost" >> $DIR/ts3db.ini
+		echo "host=127.0.0.1" >> $DIR/ts3db.ini
 		echo "port=3306" >> $DIR/ts3db.ini
 		echo "username=db_user" >> $DIR/ts3db.ini
 		echo "password=db_pass" >> $DIR/ts3db.ini
