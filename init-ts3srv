@@ -27,7 +27,7 @@ USER=ts3
 ################################
 if [ "$(id -u)" != "0" ]; then
 	echo " "
-		echo "PLEASE RUN THIS SCRIPT AS ROOT"
+		echo "PLEASE RUN THIS SCRIPT AS ROOT OR SUDO"
 	echo " "
 	exit
 fi
