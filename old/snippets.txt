@@ -1,0 +1,2 @@
+
+export LD_LIBRARY_PATH=/srv/ts3:${LD_LIBRARY_PATH}

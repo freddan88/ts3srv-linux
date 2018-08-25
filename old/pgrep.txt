@@ -1,0 +1,73 @@
+
+
+USER=ts3
+
+echo " "
+
+proc_pid=$(pgrep -l -u $USER | cut -d" " -f1)
+echo "PID: $proc_pid"
+
+if [ $proc_pid ];then
+        echo "User: $USER"
+else
+        echo "User:"
+fi
+
+proc_name=$(pgrep -l -u $USER | cut -d" " -f2)
+echo "Name: $proc_name"
+
+proc_ini=$(pgrep -a -u ts3 | cut -d" " -f3)
+echo "Conf: $proc_ini"
+echo " "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+proc_pid=$(pgrep -l -u ts3 | cut -d" " -f1)
+echo $proc_pid
+
+proc_name=$(pgrep -l -u ts3 | cut -d" " -f2)
+echo $proc_name
+
+if [$proc_name];then
+	echo "ts3 is running ts3server"
+fi
+
+pgrep -a -u ts3
+
+
+----------------------------------------------
+
+USER=ts3
+
+proc_name=$(pgrep -l -u $USER | cut -d" " -f2)
+echo "Name: $proc_name"
+
+if [ $proc_name ];then
+        echo "User: $USER"
+else
+        echo "User:"
+fi
+
+proc_pid=$(pgrep -l -u $USER | cut -d" " -f1)
+echo "Pid: $proc_pid"
+
+pgrep -a -u ts3 | cut -d"/" -f2
+ts3server inifile=ts3server.ini
+
+pgrep -a -u ts3 | cut -d" " -f3
+inifile=ts3server.ini

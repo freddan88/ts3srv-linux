@@ -1,0 +1,6 @@
+
+chattr +i file.desktop
+	chattr +i $DIR/ts3server.pid
+
+chattr -i file.desktop
+	chattr -i $DIR/ts3server.pid

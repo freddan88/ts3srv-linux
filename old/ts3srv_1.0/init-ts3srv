@@ -1,0 +1,76 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:		ts3server
+# Required-Start: 	$local_fs $network
+# Required-Stop:	$local_fs
+# Default-Start: 	2 3 4 5
+# Default-Stop: 	0 1 6
+# Description: 		Teamspeak 3 Server
+### END INIT INFO
+#################
+#
+# Config:
+DIR=/srv/ts3
+EXE=ts3server_startscript.sh
+USER=ts3
+#
+# Do not edit!
+##############
+############
+case "$1" in
+
+start)
+	if [ -f $DIR/ts3server.ini ]; then
+	lic=$(cat /srv/ts3//ts3server.ini | grep license_accepted | cut --delimiter="=" --fields=2)
+		if [ "$lic" -eq 1 ]; then
+			su $USER -c "'$DIR/$EXE' start inifile=ts3server.ini"
+		else
+			echo "###"
+			echo "#"
+			echo "# Please Read and Accept the License"
+			echo "# Read Teamspeak License in $DIR/LICENSE"
+			echo "# Change license_accepted in $DIR/ts3server.ini"
+			echo "#"
+			echo "###"
+		fi
+	fi
+
+	if ! [ -f $DIR/ts3server.ini ]; then
+		rm -f $DIR/ts3server.pid 2>/dev/null
+		su $USER -c "'$DIR/$EXE' 2>/dev/null start createinifile=1" 1>/dev/null
+		echo "###"
+		echo "#"
+		echo "# Creating config in $DIR/ts3server.ini"
+		echo "#"
+		echo "###"
+		rm -f $DIR/ts3server.pid 2>/dev/null
+	fi
+;;
+
+stop)
+	su $USER -c "'$DIR/$EXE' stop"
+;;
+
+restart)
+	$0 stop
+	$0 start
+;;
+
+status)
+echo " "
+	su $USER -c ''$DIR/$EXE' status'
+	if [ -f $DIR/ts3server.pid ]; then
+	alive=$(ps -e | grep $(cat $DIR/ts3server.pid) | cut --delimiter=" " --fields=12)
+	echo "$alive is running as pid: $(pgrep -a --pidfile $DIR/ts3server.pid | cut --delimiter=' ' --fields=1)"
+	fi
+echo " "
+;;
+
+*)
+echo " "
+	echo "Usage: {start|stop|restart|status}"
+echo " "
+;;
+
+esac
+exit
