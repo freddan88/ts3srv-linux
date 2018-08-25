@@ -8,21 +8,20 @@
 # Description: 		Teamspeak 3 Server
 ### END INIT INFO
 #
-# Version: 2.2
+# Version: 2.3
+##############
 #
 # Donate: https://www.paypal.me/freddan88
 # GitHub: https://github.com/freddan88/ts3srv-linux
 # YouTube: https://www.youtube.com/user/FreLee54
 # WebPage: http://www.leemann.se/fredrik
 #
-# Tutorial: 
-# Video: 
-#
 # Config:
+############
 DIR=/srv/ts3
 EXE=ts3server_startscript.sh
 USER=ts3
-#
+
 ################################
 # DO NOT EDIT BELOW THIS LINE! #
 ################################
@@ -55,6 +54,7 @@ echo " "
 		echo "socket=" >> $DIR/ts3db.ini
 		chown $USER:$USER $DIR/ts3db.ini
 		echo "Created config in: $DIR/ts3db.ini"
+		echo " "
 	fi
 
 	if ! [ -f $DIR/ts3server.ini ]; then
@@ -62,6 +62,7 @@ echo " "
 		su $USER -c "'$DIR/$EXE' 2>/dev/null start createinifile=1" 1>/dev/null
 		echo "Created config in: $DIR/ts3server.ini"
 		$0 stop 1>/dev/null
+		echo " "
 	fi
 
 	if [ -f $DIR/ts3server.pid ] && [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
@@ -70,7 +71,6 @@ echo " "
 	
 	if ! [ -f $DIR/ts3server.pid ] && [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
 		lic=$(cat $DIR/ts3server.ini | grep license_accepted | cut -d"=" -f2)
-		echo " "
 		
 		if  [ "$lic" -eq 1 ]; then
 			su $USER -c "'$DIR/$EXE' start inifile=ts3server.ini"
