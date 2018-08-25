@@ -126,6 +126,10 @@ ts3srv remove_finalization
 	3. Removes autostart of ts3server if this is configured
 	4. Removes the teamspeak 3 user 'ts3' from your system
 	
+Delete init-script manually
+	Example:
+	rm -f /etc/init.d/init-ts3srv
+	
 ts3srv passwd_serveradmin
 	"Will help you set a new password for serveradmin that can be used to query your server"
 	
