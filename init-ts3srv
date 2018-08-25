@@ -21,7 +21,7 @@
 DIR=/srv/ts3
 EXE=ts3server_startscript.sh
 USER=ts3
-
+####
 ################################
 # DO NOT EDIT BELOW THIS LINE! #
 ################################
@@ -31,7 +31,6 @@ if [ "$(id -u)" != "0" ]; then
 	echo " "
 	exit
 fi
-##
 ############
 case "$1" in
 
@@ -66,7 +65,14 @@ echo " "
 	fi
 
 	if [ -f $DIR/ts3server.pid ] && [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
-		echo "TeamSpeak 3 server running"
+		srv=$(pgrep -l -u $USER -F $DIR/ts3server.pid | cut -d" " -f2)
+	
+		if [ "$srv" == "ts3server" ]; then
+			echo "TeamSpeak 3 server running"
+		else
+			echo "Starting the TeamSpeak 3 server"
+			$0 restart 1>/dev/null
+		fi
 	fi
 	
 	if ! [ -f $DIR/ts3server.pid ] && [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
@@ -174,7 +180,6 @@ echo " "
 		ln -s /etc/init.d/init-ts3srv /usr/local/sbin/ts3srv 2>/dev/null
 		useradd -r -U -c "ts3server" -d $DIR -s /bin/sh $USER 2>/dev/null
 		cp -f $DIR/redist/libmariadb.so.2 $DIR/libmariadb.so.2 2>/dev/null
-		
 		chmod 754 $DIR/ts3server* 2>/dev/null
 		chown -R $USER:$USER $DIR 2>/dev/null
 		chmod 754 $DIR/lib* 2>/dev/null
