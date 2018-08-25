@@ -54,7 +54,7 @@ Example:
 4. 
 Change permission and finalize installation
 Example:
-	chmod 754 /etc/init.d/init-ts3srv
+	chmod 755 /etc/init.d/init-ts3srv
 	/etc/init.d/init-ts3srv finalize
 
 5. 
