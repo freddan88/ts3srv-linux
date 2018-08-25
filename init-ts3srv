@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:			ts3server
+# Provides:		ts3server
 # Required-Start: 	$local_fs $network
 # Required-Stop:	$local_fs
 # Default-Start: 	2 3 4 5
@@ -8,7 +8,7 @@
 # Description: 		Teamspeak 3 Server
 ### END INIT INFO
 #
-# Version: 2.3
+# Version: 2.2
 #
 # Donate: https://www.paypal.me/freddan88
 # GitHub: https://github.com/freddan88/ts3srv-linux
