@@ -30,7 +30,7 @@ Description:
 ------------
 
 Script to manage Teamspeak 3 Server on Linux
-Currently tested for Debian and CentOS Servers
+Currently tested for Debian/Ubuntu and CentOS
 
 -------------
 Instructions:
@@ -78,7 +78,7 @@ Example:
 Configure Autostart
 Examples:
 
-	Debian
+	Debian/Ubuntu
 	------
 	update-rc.d init-ts3srv defaults // Enable
 	update-rc.d init-ts3srv remove // Disable
