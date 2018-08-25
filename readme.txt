@@ -111,6 +111,7 @@ ts3srv restart
 
 ts3srv status
 	"Checks if ts3server is running and displays information about the process and network"
+	- Netstat may not work on CentOS but you can install it using: yum install -y net-tools
 
 ts3srv conf
 	"Display all configuration files in terminal"
