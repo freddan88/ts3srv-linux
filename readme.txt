@@ -133,6 +133,7 @@ Delete init-script manually
 	
 ts3srv passwd_serveradmin
 	"Will help you set a new password for serveradmin that can be used to query your server"
+	- This command only works on servers using the internal database [ ts3server.sqlitedb ]
 	
 ts3srv
 	"Shows usage and parameters"
