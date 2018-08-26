@@ -8,7 +8,7 @@
 # Description:		Teamspeak 3 Server
 ### END INIT INFO
 #
-# Version: 2.6
+# Version: 2.8
 ##############
 #
 # Donate: https://www.paypal.me/freddan88
@@ -35,7 +35,7 @@ case "$1" in
 
 start)
 	if [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
-		echo "Trying to start the TeamSpeak 3 server"
+		sleep 5
 		su $USER -c "'$DIR/$EXE' 2>/dev/null stop" 1>/dev/null
 		su $USER -c "'$DIR/$EXE' 2>/dev/null start inifile=ts3server.ini" 1>/dev/null
 	fi
@@ -47,9 +47,9 @@ echo " "
 		echo "[config]" > $DIR/ts3db.ini
 		echo "host=127.0.0.1" >> $DIR/ts3db.ini
 		echo "port=3306" >> $DIR/ts3db.ini
-		echo "username=db_user" >> $DIR/ts3db.ini
-		echo "password=db_pass" >> $DIR/ts3db.ini
-		echo "database=db" >> $DIR/ts3db.ini
+		echo "username=ts3db_user" >> $DIR/ts3db.ini
+		echo "password=ts3db_pass" >> $DIR/ts3db.ini
+		echo "database=ts3db" >> $DIR/ts3db.ini
 		echo "socket=" >> $DIR/ts3db.ini
 		chown $USER:$USER $DIR/ts3db.ini
 		echo "Created config in: $DIR/ts3db.ini"
