@@ -25,6 +25,10 @@ Download: http://www.leemann.se/fredrik/file_downloads/ts3srv_linux-init.zip
 Platform: Linux
 Language: Bash
 
+----------------------------------------------------
+License MIT: https://choosealicense.com/licenses/mit
+----------------------------------------------------
+
 ------------
 Description:
 ------------
