@@ -46,7 +46,7 @@ Example:
 	mkdir -p /srv/ts3
 
 2. 
-Download ts3server and upload everything to: /srv/ts3
+Download ts3server (Linux) and upload to: /srv/ts3
 URL: https://www.teamspeak.com/en/downloads#server
 
 3. 
