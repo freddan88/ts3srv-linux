@@ -41,44 +41,48 @@ Instructions:
 ------------
 
 1. 
-Create a new directory for the user that will be added
-Example:
-	mkdir -p /srv/ts3
-
-2. 
-Download ts3server (Linux) and upload to: /srv/ts3
+Download ts3server (Linux) and upload to: /srv and rename the folder to ts3
 URL: https://www.teamspeak.com/en/downloads#server
 
-3. 
+You can also browse different versions on:
+	http://dl.4players.de/ts/releases
+	
+Example download 64Bit version for Linux and rename
+	cd /srv/ts3
+	wget http://dl.4players.de/ts/releases/3.8.0/teamspeak3-server_linux_amd64-3.8.0.tar.bz2
+	tar xjf teamspeak3-server_linux_amd64-3.8.0.tar.bz2
+	mv teamspeak3-server_linux_amd64-3.8.0.tar.bz2 ts3
+	
+2. 
 Download the script to: /etc/init.d
 Example:
 	cd /etc/init.d
 	wget https://github.com/freddan88/ts3srv-linux/raw/master/init-ts3srv
-
-4. 
+	
+3. 
 Change permission and finalize installation
 Example:
 	chmod 755 /etc/init.d/init-ts3srv
 	/etc/init.d/init-ts3srv finalize
-
-5. 
+	
+4. 
 On first start ts3server.ini and ts3db.ini is created
 Example:
 	ts3srv run
 	
-6. 
+5. 
 Read and accept the license
 Example:
 	cat /srv/ts3/LICENSE
 	nano /srv/ts3/ts3server.ini
 	Change: license_accepted=0 < TO > license_accepted=1
 
-7.
+6.
 Start the server again
 Example:
 	ts3srv run
 	
-8. 
+7. 
 Configure Autostart
 Examples:
 
