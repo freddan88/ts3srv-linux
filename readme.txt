@@ -47,11 +47,12 @@ URL: https://www.teamspeak.com/en/downloads#server
 You can also browse different versions on:
 	http://dl.4players.de/ts/releases
 	
-Example download 64Bit version for Linux and rename
-	cd /srv/ts3
+Download 64Bit version for Linux using wget and rename the folder to ts3
+Example:
+	cd /srv
 	wget http://dl.4players.de/ts/releases/3.8.0/teamspeak3-server_linux_amd64-3.8.0.tar.bz2
 	tar xjf teamspeak3-server_linux_amd64-3.8.0.tar.bz2
-	mv teamspeak3-server_linux_amd64-3.8.0.tar.bz2 ts3
+	mv teamspeak3-server_linux_amd64 ts3
 	
 2. 
 Download the script to: /etc/init.d
@@ -98,6 +99,16 @@ Examples:
 	chkconfig --del init-ts3srv // Disable
 	chkconfig // List services
 	
+IF YOU DIDN'T SEE ANY MESSAGE ABOUT SERVER ADMIN TOKEN THEN READ THE LOG FILES
+Example:
+	cat /srv/ts3/logs/*
+
+Sample output:
+2019-06-08 18:11:09.925214|WARNING |VirtualServer |1  |--------------------------------------------------------
+2019-06-08 18:11:09.925235|WARNING |VirtualServer |1  |ServerAdmin privilege key created, please use the line below
+2019-06-08 18:11:09.925250|WARNING |VirtualServer |1  |token=YOUR SECRET TOKEN
+2019-06-08 18:11:09.925264|WARNING |VirtualServer |1  |--------------------------------------------------------
+
 ------------------
 Actions and usage:
 ------------------
