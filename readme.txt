@@ -183,7 +183,7 @@ Config:
 Video TS3 Server permissions:
 Link: https://www.youtube.com/watch?v=CDzk2KbYcVk
 
-Use sqlite3 to browse the database and look up the default serveradmin password for serverquery
+Use sqlite3 to browse the local database for teamspeak3
 Example:
 	sqlite3 /srv/ts3/ts3server.sqlitedb
 	sqlite> .mode line
@@ -193,8 +193,17 @@ Example:
 YaTQA Query Tool Teamspeak 3 Server: http://yat.qa
 YaTQA Query Tool Teamspeak 3 Manual: https://yat.qa/manual/#consolesyntax
 
+Default user for serverquery: serveradmin
+Default port for serverquery: 10011
+Password for serveradmin is set during installation.
+This password can be changed by running this command:	
+	ts3srv passwd_serveradmin
+
 Query your server using Telnet:
 https://forum.teamspeak.com/threads/91465-How-to-use-the-Server-Query
+
+- In the more recent versions of teamspeak3 server you can also you SSH for serverQuery´s
+Default port for serverquery SSH: 10022
 
 https://gaming.stackexchange.com/questions/51926/how-can-i-directly-link-to-a-teamspeak-server-on-my-website
 
