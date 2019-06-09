@@ -44,9 +44,9 @@ Instructions:
 Download software and dependencies
 
 Debian/Ubuntu: 
-	apt-get install nano wget tar bzip2 net-tools
+	apt-get install nano wget tar bzip2 net-tools sqlite3
 CentOS: 
-	yum install nano wget tar bzip2 net-tools
+	yum install nano wget tar bzip2 net-tools sqlite
 	
 2. 
 Download ts3server (Linux) and upload to: /srv and rename the folder to ts3
@@ -182,6 +182,12 @@ Config:
 
 Video TS3 Server permissions:
 Link: https://www.youtube.com/watch?v=CDzk2KbYcVk
+
+Use sqlite3 to browse the database and look up the default serveradmin password for serverquery
+Example:
+	/srv/ts3# sqlite3 ts3server.sqlitedb
+	sqlite> .mode line
+	sqlite> SELECT * FROM clients;
 
 YaTQA Query Tool Teamspeak 3 Server: http://yat.qa
 YaTQA Query Tool Teamspeak 3 Manual: https://yat.qa/manual/#consolesyntax
