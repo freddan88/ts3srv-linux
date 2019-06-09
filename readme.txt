@@ -2,7 +2,7 @@
 START README
 ------------
 
-Updated: 2018-08-25
+Updated: 2019-06-09
 
 ------
 Links:
@@ -41,6 +41,14 @@ Instructions:
 ------------
 
 1. 
+Download software and dependencies
+
+Debian/Ubuntu: 
+	apt-get install nano wget tar bzip2 net-tools
+CentOS: 
+	yum install nano wget tar bzip2 net-tools
+	
+2. 
 Download ts3server (Linux) and upload to: /srv and rename the folder to ts3
 URL: https://www.teamspeak.com/en/downloads#server
 
@@ -54,36 +62,36 @@ Example:
 	tar xjf teamspeak3-server_linux_amd64-3.8.0.tar.bz2
 	mv teamspeak3-server_linux_amd64 ts3
 	
-2. 
+3. 
 Download the script to: /etc/init.d
 Example:
 	cd /etc/init.d
 	wget https://github.com/freddan88/ts3srv-linux/raw/master/init-ts3srv
 	
-3. 
+4. 
 Change permission and finalize installation
 Example:
 	chmod 755 /etc/init.d/init-ts3srv
 	/etc/init.d/init-ts3srv finalize
 	
-4. 
+5. 
 On first start ts3server.ini and ts3db.ini is created
 Example:
 	ts3srv run
 	
-5. 
+6. 
 Read and accept the license
 Example:
 	cat /srv/ts3/LICENSE
 	nano /srv/ts3/ts3server.ini
 	Change: license_accepted=0 < TO > license_accepted=1
 
-6.
+7.
 Start the server again
 Example:
 	ts3srv run
 	
-7. 
+8.
 Configure Autostart
 Examples:
 
