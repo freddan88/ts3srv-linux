@@ -1,0 +1,228 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:			ts3server
+# Required-Start: 	$local_fs $network
+# Required-Stop:	$local_fs
+# Default-Start: 	2 3 4 5
+# Default-Stop: 	0 1 6
+# Description:		Teamspeak 3 Server
+### END INIT INFO
+#
+# Version: 3.0
+##############
+#
+# Donate: https://www.paypal.me/freddan88
+# GitHub: https://github.com/freddan88/ts3srv-linux
+# YouTube: https://www.youtube.com/user/FreLee54
+# WebPage: http://www.leemann.se/fredrik
+#
+# Config:
+############
+DIR=/srv/ts3
+EXE=ts3server_startscript.sh
+USER=ts3
+################################
+# DO NOT EDIT BELOW THIS LINE! #
+################################
+if [ "$(id -u)" != "0" ]; then
+	echo " "
+		echo "PLEASE RUN THIS SCRIPT AS ROOT OR SUDO"
+	echo " "
+	exit
+fi
+############
+case "$1" in
+
+start)
+	if [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
+		sleep 5
+		su $USER -c "'$DIR/$EXE' 2>/dev/null stop" 1>/dev/null
+		rm -f $DIR/ts3server.pid
+		su $USER -c "'$DIR/$EXE' 2>/dev/null start inifile=ts3server.ini" 1>/dev/null
+	fi
+;;
+
+run)
+echo " "
+	if ! [ -f $DIR/ts3db.ini ]; then
+		echo "[config]" > $DIR/ts3db.ini
+		echo "host=127.0.0.1" >> $DIR/ts3db.ini
+		echo "port=3306" >> $DIR/ts3db.ini
+		echo "username=ts3db_user" >> $DIR/ts3db.ini
+		echo "password=ts3db_pass" >> $DIR/ts3db.ini
+		echo "database=ts3db" >> $DIR/ts3db.ini
+		echo "socket=" >> $DIR/ts3db.ini
+		chown $USER:$USER $DIR/ts3db.ini
+		echo "Created config in: $DIR/ts3db.ini"
+		echo " "
+	fi
+
+	if ! [ -f $DIR/ts3server.ini ]; then
+		su $USER -c "'$DIR/$EXE' 2>/dev/null stop" 1>/dev/null
+		su $USER -c "'$DIR/$EXE' 2>/dev/null start createinifile=1" 1>/dev/null
+		echo "Created config in: $DIR/ts3server.ini"
+		$0 stop 1>/dev/null
+		echo " "
+	fi
+
+	proc_pid=$(pgrep -u $USER ts3server)
+
+	if [ -f $DIR/ts3server.pid ] || ! [ -z "$proc_pid" ]; then
+	 	echo "TeamSpeak 3 server running or pidfile exists"
+	 	echo " "
+		exit
+	fi
+
+	lic=$(cat $DIR/ts3server.ini | grep license_accepted | cut -d"=" -f2)
+
+	if  [ "$lic" -eq 1 ]; then
+		su $USER -c "'$DIR/$EXE' start inifile=ts3server.ini"
+	elif [ "$lic" -eq 0 ]; then
+		echo "Please Read and Accept the License"
+		echo "Read Teamspeak License in $DIR/LICENSE"
+		echo "Change license_accepted in $DIR/ts3server.ini"
+	else
+		echo "TeamSpeak 3 server error"
+	fi
+echo " "
+;;
+
+stop)
+echo " "
+	echo "Stopping the TeamSpeak 3 server"
+	pgrep -u $USER ts3server > ts3server.pid
+	su $USER -c "'$DIR/$EXE' 2>/dev/null stop" 1>/dev/null
+	rm -f $DIR/ts3server.pid
+echo " "
+;;
+
+restart)
+echo " "
+	$0 stop 1>/dev/null
+	echo "Restarting the TeamSpeak 3 server"
+	$0 run
+;;
+
+status)
+echo " "
+	proc_pid=$(pgrep -u $USER ts3server)
+	
+	if [ $proc_pid ]; then
+		echo "Server running"
+	else
+		echo "No server running"
+	fi
+
+	echo " "
+	echo "PID: $proc_pid"
+	if [ $proc_pid ]; then
+		echo "User: $USER"
+	else
+		echo "User:"
+	fi
+
+	echo "Name: $(pgrep -l -u $USER ts3server | cut -d" " -f2)"
+	if [ -f $DIR/ts3db.ini ]; then
+		echo "DBCFG: $DIR/ts3db.ini"
+	else
+		echo "DBCFG:"
+	fi
+	
+	if [ -f $DIR/ts3server.ini ]; then
+		echo "Config: $DIR/ts3server.ini"
+	else
+		echo "Config:"
+	fi
+
+	if [ -f $DIR/ts3server.pid ]; then
+		echo "Pidfile: $DIR/ts3server.pid"
+	else
+		echo "Pidfile:"
+	fi
+
+	echo "Parameter: $(pgrep -a -u $USER ts3server | cut -d" " -f3)"
+	if [ $proc_pid ]; then
+		echo " "
+		netstat -tulpn | grep PID > $DIR/ts3net.log
+		netstat -tulpn | grep $proc_pid >> $DIR/ts3net.log
+		cat $DIR/ts3net.log
+	fi
+
+echo " "
+	echo "Default Voice Port: 9987"
+	echo "Default Query Port: 10011"
+	echo "File Transfer Port: 30033"
+echo " "
+;;
+
+conf)
+	if [ -f $DIR/ts3db.ini ]; then
+		echo " "
+		echo "[ts3db.ini]"
+		cat $DIR/ts3db.ini 2>/dev/null
+	fi
+
+	if [ -f $DIR/ts3server.ini ]; then
+		echo " "
+		echo "[ts3server.ini]"
+		cat $DIR/ts3server.ini 2>/dev/null
+	fi
+echo " "
+;;
+
+finalize)
+echo " "
+	if [ -f /etc/init.d/init-ts3srv ]; then
+		echo "Script by: www.leemann.se/fredrik"
+		echo " "
+		ln -s /etc/init.d/init-ts3srv /usr/local/sbin/ts3srv 2>/dev/null
+		useradd -r -U -c "ts3server" -d $DIR -s /bin/sh $USER 2>/dev/null
+		cp -f $DIR/redist/libmariadb.so.2 $DIR/libmariadb.so.2 2>/dev/null
+		chmod 754 $DIR/ts3server* 2>/dev/null
+		chown -R $USER:$USER $DIR 2>/dev/null
+		chmod 754 $DIR/lib* 2>/dev/null
+		echo "Done"
+	else
+		echo "Can't find: /etc/init.d/init-ts3srv"
+	fi
+echo " "
+;;
+
+remove_finalization)
+echo " "
+	if ! [ -f $DIR/ts3server.pid ]; then
+		chown -R root:root $DIR 2>/dev/null
+		unlink /usr/local/sbin/ts3srv 2>/dev/null
+		update-rc.d init-ts3srv remove 2>/dev/null
+		chkconfig --del init-ts3srv 2>/dev/null
+		userdel $USER 2>/dev/null
+		echo "Done"
+	else
+		echo "TeamSpeak 3 server running"
+	fi
+echo " "
+;;
+
+passwd_serveradmin)
+echo " "
+	if ! [ -f $DIR/ts3server.pid ]; then
+		touch $DIR/.ts3server_license_accepted
+		read -p "New password for serveradmin: " PASS
+		echo " "
+		su $USER -c "'$DIR/$EXE' start serveradmin_password=$PASS"
+		rm -f $DIR/.ts3server_license_accepted
+		$0 stop
+	else
+		echo "TeamSpeak 3 server running"
+		echo " "
+	fi
+;;
+
+*)
+echo " "
+	echo "Usage: run|stop|restart|status|conf|finalize|remove_finalization|passwd_serveradmin"
+echo " "
+;;
+
+esac
+exit
