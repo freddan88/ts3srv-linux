@@ -207,7 +207,7 @@ Default port for serverquery SSH: 10022
 
 https://gaming.stackexchange.com/questions/51926/how-can-i-directly-link-to-a-teamspeak-server-on-my-website
 
-PHP script to set new password for serveradmin
+PHP script to set new password for serveradmin when using MySQL or MariaDB
 https://forum.teamspeak.com/threads/48255-Don-t-have-your-Server-Admin-Query-password-Look-here!
 
 ----------
