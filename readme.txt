@@ -185,12 +185,16 @@ Link: https://www.youtube.com/watch?v=CDzk2KbYcVk
 
 Use sqlite3 to browse the database and look up the default serveradmin password for serverquery
 Example:
-	/srv/ts3# sqlite3 ts3server.sqlitedb
+	sqlite3 /srv/ts3/ts3server.sqlitedb
 	sqlite> .mode line
 	sqlite> SELECT * FROM clients;
+	sqlite> .exit
 
 YaTQA Query Tool Teamspeak 3 Server: http://yat.qa
 YaTQA Query Tool Teamspeak 3 Manual: https://yat.qa/manual/#consolesyntax
+
+Query your server using Telnet:
+https://forum.teamspeak.com/threads/91465-How-to-use-the-Server-Query
 
 https://gaming.stackexchange.com/questions/51926/how-can-i-directly-link-to-a-teamspeak-server-on-my-website
 
