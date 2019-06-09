@@ -185,7 +185,7 @@ Link: https://www.youtube.com/watch?v=CDzk2KbYcVk
 
 Use sqlite3 to browse the local database for teamspeak3
 Example:
-	root/:# sqlite3 /srv/ts3/ts3server.sqlitedb
+	host:/# sqlite3 /srv/ts3/ts3server.sqlitedb
 	sqlite> .mode line
 	sqlite> SELECT * FROM clients;
 	sqlite> .exit
