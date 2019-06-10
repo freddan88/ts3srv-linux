@@ -198,7 +198,7 @@ Default port for serverquery: 10011
 
 Password for serveradmin is set during installation.
 Password can be changed by running:	
-	ts3srv passwd_serveradmin <- Local database (SQLite)
+    ts3srv passwd_serveradmin <- Local database (SQLite)
     php passwd_serveradmin.php <- Local or remote database (MySQL/MariaDB)
 
 Query your server using Telnet:
