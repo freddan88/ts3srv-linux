@@ -1,6 +1,13 @@
 <?php
 
-$config = file('./ts3db.ini');
+if (file_exists('./ts3db.ini')){
+    $config = file('./ts3db.ini');
+} else {
+    echo "\nError - No such file: ./ts3db.ini\n";
+    echo "\n";
+    exit();
+}
+
 array_shift($config);
 
 function split($cvar){
@@ -19,6 +26,7 @@ $database = trim($values[4]);
 $dsn = "mysql:host=$hostname;dbname=$database";
 $parameter = empty($argv[1]) ? 'Passw0rd' : $argv[1];
 $new_password=base64_encode(sha1($parameter, true));
+
 echo "\n";
 
 try{
