@@ -215,6 +215,10 @@ https://forum.teamspeak.com/threads/48255-Don-t-have-your-Server-Admin-Query-pas
 Strong random password generator:
 https://passwordsgenerator.net/
 
+Install PHP 7.3 on Debian8/9, CentOS6/7:
+https://computingforgeeks.com/how-to-install-php-7-3-on-debian-9-debian-8/
+https://kifarunix.com/installing-php-7-3-3-on-centos-7-6/
+
 ----------
 END README
 ----------
