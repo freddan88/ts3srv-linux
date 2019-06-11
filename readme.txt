@@ -152,7 +152,8 @@ ts3srv remove_finalization
 	1. Will change permissions and owner to root on ts3-root
 	2. Removes the symbolic link from /usr/local/sbin/ts3srv
 	3. Removes autostart of ts3server if this is configured
-	4. Removes the teamspeak 3 user 'ts3' from your system
+    4. Removes init-script from the /etc/init.d directory
+	5. Removes the teamspeak 3 user 'ts3' from your system
 	
 Delete init-script manually
 	Example:
