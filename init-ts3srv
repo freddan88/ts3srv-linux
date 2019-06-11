@@ -8,7 +8,7 @@
 # Description:		Teamspeak 3 Server
 ### END INIT INFO
 #
-# Version: 3.0
+# Version: 3.2
 ##############
 #
 # Donate: https://www.paypal.me/freddan88
@@ -21,6 +21,8 @@
 DIR=/srv/ts3
 EXE=ts3server_startscript.sh
 USER=ts3
+# Only used if ts3 is configured to use MySQL/MariaDB as database
+DB_SERVICE_NAME=mysqld
 ################################
 # DO NOT EDIT BELOW THIS LINE! #
 ################################
@@ -30,12 +32,29 @@ if [ "$(id -u)" != "0" ]; then
 	echo " "
 	exit
 fi
+
+dbplugin=$(cat /srv/ts3/ts3server.ini | grep dbplugin= | cut -d"=" -f2)
+
+if [ $dbplugin = "ts3db_mariadb" ];then
+
+	for try in 1 2 3 4 5 6 7 8; do
+        active=$(pgrep -x $DB_SERVICE_NAME)
+
+        if [ -n "$active" ]; then
+            break
+        else
+            echo "Database is not active!"
+            echo "Waiting..."
+            sleep 2
+        fi
+    done
+fi
 ############
 case "$1" in
 
 start)
 	if [ -f $DIR/ts3server.ini ] && [ -f $DIR/ts3db.ini ]; then
-		sleep 5
+		sleep 4
 		su $USER -c "'$DIR/$EXE' 2>/dev/null stop" 1>/dev/null
 		rm -f $DIR/ts3server.pid
 		su $USER -c "'$DIR/$EXE' 2>/dev/null start inifile=ts3server.ini" 1>/dev/null
@@ -106,7 +125,7 @@ echo " "
 status)
 echo " "
 	proc_pid=$(pgrep -u $USER ts3server)
-	
+
 	if [ $proc_pid ]; then
 		echo "Server running"
 	else
@@ -127,7 +146,7 @@ echo " "
 	else
 		echo "DBCFG:"
 	fi
-	
+
 	if [ -f $DIR/ts3server.ini ]; then
 		echo "Config: $DIR/ts3server.ini"
 	else
@@ -193,8 +212,9 @@ echo " "
 	if ! [ -f $DIR/ts3server.pid ]; then
 		chown -R root:root $DIR 2>/dev/null
 		unlink /usr/local/sbin/ts3srv 2>/dev/null
-		update-rc.d init-ts3srv remove 2>/dev/null
 		chkconfig --del init-ts3srv 2>/dev/null
+		update-rc.d init-ts3srv remove 2>/dev/null
+		rm -f /etc/init.d/init-ts3srv 2>/dev/null
 		userdel $USER 2>/dev/null
 		echo "Done"
 	else
