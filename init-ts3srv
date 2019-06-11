@@ -33,21 +33,23 @@ if [ "$(id -u)" != "0" ]; then
 	exit
 fi
 
-dbplugin=$(cat /srv/ts3/ts3server.ini | grep dbplugin= | cut -d"=" -f2)
+if [ -f "$DIR/ts3server.ini" ]; then
+	dbplugin=$(cat $DIR/ts3server.ini | grep dbplugin= | cut -d"=" -f2)
+	if [ $dbplugin = "ts3db_mariadb" ];then
 
-if [ $dbplugin = "ts3db_mariadb" ];then
+		for try in 1 2 3 4 5 6 7 8; do
+			active=$(pgrep -x $DB_SERVICE_NAME)
 
-	for try in 1 2 3 4 5 6 7 8; do
-        active=$(pgrep -x $DB_SERVICE_NAME)
+			if [ -n "$active" ]; then
+				break
+			else
+				echo "Database is not active!"
+				echo "Waiting..."
+				sleep 2
+			fi
+		done
 
-        if [ -n "$active" ]; then
-            break
-        else
-            echo "Database is not active!"
-            echo "Waiting..."
-            sleep 2
-        fi
-    done
+	fi
 fi
 ############
 case "$1" in
