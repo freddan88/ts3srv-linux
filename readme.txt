@@ -23,7 +23,7 @@ Tutorial: https://github.com/freddan88/ts3srv-linux/blob/master/readme.txt
 Download: http://www.leemann.se/fredrik/file_downloads/ts3srv_linux-init.zip
 
 Platform: Linux
-Language: Bash
+Language: Bash + PHP
 
 ----------------------------------------------------
 License MIT: https://choosealicense.com/licenses/mit
