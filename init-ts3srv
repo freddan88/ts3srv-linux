@@ -21,8 +21,10 @@
 DIR=/srv/ts3
 EXE=ts3server_startscript.sh
 USER=ts3
-# Change this from sqlite to mysqld if using MySQL/MariaDB as database
+# Change this from sqlite to the service name of your database...
 # Find the service name for your database by using the command: ps -e
+# This shall only be changed if MySQL/MariaDB is installed locally...
+######################
 DB_SERVICE_NAME=sqlite
 ################################
 # DO NOT EDIT BELOW THIS LINE! #
