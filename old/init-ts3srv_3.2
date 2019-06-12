@@ -8,7 +8,7 @@
 # Description:		Teamspeak 3 Server
 ### END INIT INFO
 #
-# Version: 3.4
+# Version: 3.2
 ##############
 #
 # Donate: https://www.paypal.me/freddan88
@@ -21,9 +21,8 @@
 DIR=/srv/ts3
 EXE=ts3server_startscript.sh
 USER=ts3
-# Change this from sqlite to mysqld if using MySQL/MariaDB as database
-# Find the service name for your database by using the command: ps -e
-DB_SERVICE_NAME=sqlite
+# Only used if ts3 is configured to use MySQL/MariaDB as database
+DB_SERVICE_NAME=mysqld
 ################################
 # DO NOT EDIT BELOW THIS LINE! #
 ################################
@@ -34,18 +33,23 @@ if [ "$(id -u)" != "0" ]; then
 	exit
 fi
 
-if [ $DB_SERVICE_NAME != "sqlite" ]; then
-    for try in 1 2 3 4 5 6 7 8; do
-		active=$(pgrep -x $DB_SERVICE_NAME)
+if [ -f "$DIR/ts3server.ini" ]; then
+	dbplugin=$(cat $DIR/ts3server.ini | grep dbplugin= | cut -d"=" -f2)
+	if [ $dbplugin = "ts3db_mariadb" ];then
 
-		if [ -n "$active" ]; then
-			break
-		else
-			echo "Database is not active!"
-			echo "Waiting..."
-			sleep 2
-		fi
-	done
+		for try in 1 2 3 4 5 6 7 8; do
+			active=$(pgrep -x $DB_SERVICE_NAME)
+
+			if [ -n "$active" ]; then
+				break
+			else
+				echo "Database is not active!"
+				echo "Waiting..."
+				sleep 2
+			fi
+		done
+
+	fi
 fi
 ############
 case "$1" in
