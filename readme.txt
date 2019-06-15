@@ -222,7 +222,7 @@ OBS: The new database will cause teamspeak to generate a new token and password 
 
 8. Create a new password for serveradmin
 Example:
-	cd srv/ts3srv
+	cd /srv/ts3srv
 	wget https://github.com/freddan88/ts3srv-linux/raw/master/passwd_serveradmin.php
 	php passwd_serveradmin.php <Your password>
 
