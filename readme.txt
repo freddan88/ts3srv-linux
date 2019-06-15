@@ -149,7 +149,7 @@ Example PHP 7.3
 	yum install yum-utils
 	yum-config-manager --disable remi-php54
 	yum-config-manager --enable remi-php73
-        yum install php php-{cli,fpm,pdo,mysql,zip,gd,mbstring,mcrypt,curl,xml,bcmath,json,ldap,fileinfo}
+    yum install php php-{cli,fpm,pdo,mysql,zip,gd,mbstring,mcrypt,curl,xml,bcmath,json,ldap,fileinfo}
 
 	CentOS7:
 	yum install epel-release
@@ -157,7 +157,7 @@ Example PHP 7.3
 	yum install yum-utils
 	yum-config-manager --disable remi-php54
 	yum-config-manager --enable remi-php73
-        yum install php php-{cli,fpm,pdo,mysql,zip,gd,mbstring,mcrypt,curl,xml,bcmath,json,ldap,fileinfo}
+    yum install php php-{cli,fpm,pdo,mysql,zip,gd,mbstring,mcrypt,curl,xml,bcmath,json,ldap,fileinfo}
 
 Resources:
 	https://computingforgeeks.com/how-to-install-php-7-3-on-debian-9-debian-8/
@@ -180,7 +180,7 @@ CentOS: /var/lib/mysql/mysql.sock
 
 6.
 Edit the main configuration-file
-        cd /srv/ts3
+    cd /srv/ts3
 	cp ts3server.ini ts3server_bak.ini
 	nano ts3server.ini
 
@@ -191,7 +191,7 @@ Change to:
 
 6.
 Edit the database configuration-file
-        cd /srv/ts3
+    cd /srv/ts3
 	cp ts3db.ini ts3db_bak.ini
 	nano ts3db.ini
 
@@ -222,7 +222,7 @@ OBS: The new database will cause teamspeak to generate a new token and password 
 
 8. Create a new password for serveradmin
 Example:
-	cd /srv/ts3srv
+	cd /srv/ts3
 	wget https://github.com/freddan88/ts3srv-linux/raw/master/passwd_serveradmin.php
 	php passwd_serveradmin.php <Your password>
 
