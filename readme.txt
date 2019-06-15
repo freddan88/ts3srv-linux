@@ -40,46 +40,46 @@ Currently tested for Debian/Ubuntu and CentOS
 Instructions:
 ------------
 
-1. 
+1.
 Download software and dependencies
 
-Debian/Ubuntu: 
+Debian/Ubuntu:
 	apt-get install nano wget tar bzip2 net-tools sqlite3
-CentOS: 
+CentOS:
 	yum install nano wget tar bzip2 net-tools sqlite
-	
-2. 
+
+2.
 Download ts3server (Linux) and upload to: /srv and rename the folder to ts3
 URL: https://www.teamspeak.com/en/downloads#server
 
 You can also browse different versions on:
 	http://dl.4players.de/ts/releases
-	
+
 Download 64Bit version for Linux using wget and rename the folder to ts3
 Example:
 	cd /srv
 	wget http://dl.4players.de/ts/releases/3.8.0/teamspeak3-server_linux_amd64-3.8.0.tar.bz2
 	tar xjf teamspeak3-server_linux_amd64-3.8.0.tar.bz2
 	mv teamspeak3-server_linux_amd64 ts3
-	
-3. 
+
+3.
 Download the script to: /etc/init.d
 Example:
 	cd /etc/init.d
 	wget https://github.com/freddan88/ts3srv-linux/raw/master/init-ts3srv
-	
-4. 
+
+4.
 Change permission and finalize installation
 Example:
 	chmod 755 /etc/init.d/init-ts3srv
 	/etc/init.d/init-ts3srv finalize
-	
-5. 
+
+5.
 On first start ts3server.ini and ts3db.ini is created
 Example:
 	ts3srv run
-	
-6. 
+
+6.
 Read and accept the license
 Example:
 	cat /srv/ts3/LICENSE
@@ -90,7 +90,7 @@ Example:
 Start the server again
 Example:
 	ts3srv run
-	
+
 8.
 Configure Autostart
 Examples:
@@ -106,7 +106,7 @@ Examples:
 	chkconfig --add init-ts3srv // Enable
 	chkconfig --del init-ts3srv // Disable
 	chkconfig // List services
-	
+
 IF YOU DIDN'T SEE ANY MESSAGE ABOUT SERVER ADMIN TOKEN THEN READ THE LOG FILES
 Example:
 	cat /srv/ts3/logs/*
@@ -116,6 +116,115 @@ Sample output:
 2019-06-08 18:11:09.925235|WARNING |VirtualServer |1  |ServerAdmin privilege key created, please use the line below
 2019-06-08 18:11:09.925250|WARNING |VirtualServer |1  |token=YOUR SECRET TOKEN
 2019-06-08 18:11:09.925264|WARNING |VirtualServer |1  |--------------------------------------------------------
+
+---------------------
+Use MariaDB or MySQL:
+---------------------
+
+1.
+Stop the server and configure init-script
+Example:
+	ts3srv stop
+	nano /etc/init.d/init-ts3srv
+	Change: DB_SERVICE_NAME=sqlite < TO > DB_SERVICE_NAME=mysqld
+
+2.
+Install MariaDB and secure it
+	https://downloads.mariadb.org/mariadb/repositories
+	mysql_secure_installation
+
+3. Install PHP
+Example PHP 7.3
+
+	Debian:
+	apt-get install lsb-release apt-transport-https ca-certificates
+	wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+	echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.3.list
+	apt-get update
+	apt-get install php7.3 php7.3-cli php7.3-fpm php7.3-pdo php7.3-mysql php7.3-zip php7.3-gd php7.3-mbstring php7.3-curl php7.3-xml php7.3-bcmath php7.3-json php7.3-ldap
+
+	CentOS6:
+	yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+	yum install http://rpms.remirepo.net/enterprise/remi-release-6.rpm
+	yum install yum-utils
+	yum-config-manager --disable remi-php54
+	yum-config-manager --enable remi-php73
+	yum install php php-cli php-fpm php-pdo php-mysql php-zip php-gd php-mbstring php-mcrypt php-curl php-xml php-bcmath php-json php-ldap php-fileinfo
+
+	CentOS7:
+	yum install epel-release
+	yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+	yum install yum-utils
+	yum-config-manager --disable remi-php54
+	yum-config-manager --enable remi-php73
+	yum install php php-cli php-fpm php-pdo php-mysql php-zip php-gd php-mbstring php-mcrypt php-curl php-xml php-bcmath php-json php-ldap php-fileinfo
+
+Resources:
+	https://computingforgeeks.com/how-to-install-php-7-3-on-debian-9-debian-8/
+	https://kifarunix.com/installing-php-7-3-3-on-centos-7-6/
+	https://www.tecmint.com/install-php-7-in-centos-6/
+
+4.
+Create a new database for your teamspeak-server
+Example:
+	mysqladmin -u root -p create ts3db
+
+5.
+Locate the socket-file
+Example:
+	mysqladmin -u root -p version
+
+Defaults
+Debian: /var/run/mysqld/mysqld.sock
+CentOS: /var/lib/mysql/mysql.sock
+
+6.
+Edit the main configuration-file
+	cp ts3server.ini ts3server_bak.ini
+	nano ts3server.ini
+
+Change to:
+	dbplugin=ts3db_mariadb
+	dbpluginparameter=ts3db.ini
+	dbsqlcreatepath=create_mariadb/
+
+6.
+Edit the database configuration-file
+	cp ts3db.ini ts3db_bak.ini
+	nano ts3db.ini
+
+To use MySQL/MariaDB (TCP/IP)
+	[config]
+	host=127.0.0.1
+	port=3306
+	username=root
+	password=fredrik
+	database=ts3db
+	socket=
+
+To use MySQL/MariaDB (SOCKET)
+	[config]
+	host=localhost
+	port=3306
+	username=root
+	password=fredrik
+	database=ts3db
+	socket=/var/lib/mysql/mysql.sock
+
+7. Start the server to start using the new database
+Example:
+	ts3srv run
+
+8. Create a new password for serveradmin
+Example:
+	cd srv/ts3srv
+	wget https://github.com/freddan88/ts3srv-linux/raw/master/passwd_serveradmin.php
+	php passwd_serveradmin.php <Your password>
+
+(DEFAULT PASSWORD IF NON GIVEN IS: Passw0rd)
+
+Resource:
+https://forum.teamspeak.com/threads/48255-Don-t-have-your-Server-Admin-Query-password-Look-here
 
 ------------------
 Actions and usage:
@@ -129,7 +238,7 @@ ts3srv run
 	2. Checks for ts3server.ini (configuration) and if not found creates it
 	3. Checks if license is accepted and then starts the server if it is
 	4. If the license is not accepted the server will ask you to accept it
-	
+
 ts3srv stop
 	"Stop the Teamspeak 3 server and removes the pid-file"
 
@@ -154,20 +263,20 @@ ts3srv remove_finalization
 	3. Removes autostart of ts3server if this is configured
     4. Removes init-script from the /etc/init.d directory
 	5. Removes the teamspeak 3 user 'ts3' from your system
-	
+
 Delete init-script manually
 	Example:
 	rm -f /etc/init.d/init-ts3srv
-	
+
 ts3srv passwd_serveradmin
 	"Will help you set a new password for serveradmin that can be used to query your server"
 	- This command only works on servers using the internal database [ ts3server.sqlitedb ]
-	
+
 ts3srv
 	"Shows usage and parameters"
 	Example:
 	Usage: run|stop|restart|status|conf|finalize|remove_finalization|passwd_serveradmin
-	
+
 -----
 Other
 -----
@@ -186,10 +295,21 @@ Link: https://www.youtube.com/watch?v=CDzk2KbYcVk
 
 Use sqlite3 to browse the local database for teamspeak3
 Example:
-	host:/# sqlite3 /srv/ts3/ts3server.sqlitedb
+	root@host:~# sqlite3 /srv/ts3/ts3server.sqlitedb
+	------------------------------------------------
 	sqlite> .mode line
 	sqlite> SELECT * FROM clients;
 	sqlite> .exit
+	
+Use MariaDB/MySQL to browse the database for teamspeak3
+Example:
+	root@host:~# mysql -u root -p
+	-----------------------------
+	MariaDB [(none)]> show databases;
+	MariaDB [(none)]> use ts3db;
+	MariaDB [ts3db]> show tables;
+	MariaDB [ts3db]> SELECT * FROM channel_properties;
+	MariaDB [ts3db]> exit;
 
 YaTQA Query Tool Teamspeak 3 Server: http://yat.qa
 YaTQA Query Tool Teamspeak 3 Manual: https://yat.qa/manual/#consolesyntax
@@ -198,7 +318,7 @@ Default user for serverquery: serveradmin
 Default port for serverquery: 10011
 
 Password for serveradmin is set during installation.
-Password can be changed by running:	
+Password can be changed by running:
     ts3srv passwd_serveradmin <- Local database (SQLite)
     php passwd_serveradmin.php <- Local or remote database (MySQL/MariaDB)
 
