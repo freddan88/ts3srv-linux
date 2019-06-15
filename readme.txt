@@ -180,7 +180,7 @@ CentOS: /var/lib/mysql/mysql.sock
 
 6.
 Edit the main configuration-file
-    cd /srv/ts3
+        cd /srv/ts3
 	cp ts3server.ini ts3server_bak.ini
 	nano ts3server.ini
 
@@ -191,7 +191,7 @@ Change to:
 
 6.
 Edit the database configuration-file
-    cd /srv/ts3
+        cd /srv/ts3
 	cp ts3db.ini ts3db_bak.ini
 	nano ts3db.ini
 
@@ -199,8 +199,8 @@ To use MySQL/MariaDB (TCP/IP)
 	[config]
 	host=127.0.0.1
 	port=3306
-	username=root
-	password=fredrik
+	username=<DB_USER>
+	password=<DB_PASSWORD>
 	database=ts3db
 	socket=
 
@@ -208,8 +208,8 @@ To use MySQL/MariaDB (SOCKET)
 	[config]
 	host=localhost
 	port=3306
-	username=root
-	password=fredrik
+	username=<DB_USER>
+	password=<DB_PASSWORD>
 	database=ts3db
 	socket=/var/lib/mysql/mysql.sock
 
