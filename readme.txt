@@ -216,6 +216,9 @@ To use MySQL/MariaDB (SOCKET)
 7. Start the server to start using the new database
 Example:
 	ts3srv run
+    
+OBS: The new database will cause teamspeak to generate a new token and password for serveradmin
+    cat /srv/ts3/logs/*
 
 8. Create a new password for serveradmin
 Example:
