@@ -22,6 +22,15 @@ Video:
 Tutorial: https://github.com/freddan88/ts3srv-linux/blob/master/readme.txt
 Download: http://www.leemann.se/fredrik/file_downloads/ts3srv_linux-init.zip
 
+TeamSpeak 3 Server Linux (init-script + SQLite Database)
+YouTube: https://www.youtube.com/watch?v=bKK0Dx_aC0w
+
+TeamSpeak 3 Server Linux (init-script + MySQL/MariaDB Database)
+https://www.youtube.com/watch?v=wQTNRWu8ipM
+
+Playlist (YouTube)
+https://www.youtube.com/playlist?list=PLgwpw8nEhjkUIFQXd4zFD-VKUVz40aJ3J
+
 Platform: Linux
 Language: Bash + PHP
 
