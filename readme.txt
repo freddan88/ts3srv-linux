@@ -28,7 +28,7 @@ YouTube: https://www.youtube.com/watch?v=bKK0Dx_aC0w
 TeamSpeak 3 Server Linux (init-script + MySQL/MariaDB Database)
 YouTube: https://www.youtube.com/watch?v=wQTNRWu8ipM
 
-Playlist (YouTube)
+Playlist: TS3SRV - Linux (YouTube)
 https://www.youtube.com/playlist?list=PLgwpw8nEhjkUIFQXd4zFD-VKUVz40aJ3J
 
 Platform: Linux
