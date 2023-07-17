@@ -8,7 +8,7 @@ Updated: 2019-06-09
 Links:
 ------
 
-URL: http://www.leemann.se/fredrik
+WebPage: http://www.leemann.se/fredrik
 Github-main: https://github.com/freddan88
 Github-page: https://github.com/freddan88/ts3srv-linux
 
